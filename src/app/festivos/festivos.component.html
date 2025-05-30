@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="festivos.component.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="container">
+  <h2>Consultar Festivos</h2>
+
+  <div class="section">
+    <h3>Verificar Fecha Festiva</h3>
+    <div class="form-group">
+      <label for="paisVerificar">País:</label>
+      <select id="paisVerificar" [(ngModel)]="selectedPaisIdVerificar" name="paisVerificar">
+        <option *ngFor="let pais of paises" [value]="pais.id">{{ pais.nombre }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="fechaVerificar">Fecha:</label>
+      <input type="date" id="fechaVerificar" [(ngModel)]="fechaVerificar" name="fechaVerificar">
+    </div>
+    <button (click)="onVerificarFecha()">Verificar</button>
+    <p *ngIf="resultadoVerificacion" class="resultado">{{ resultadoVerificacion }}</p>
+  </div>
+
+  <hr>
+
+  <div class="section">
+    <h3>Listar Festivos por Año y País</h3>
+    <div class="form-group">
+      <label for="paisListar">País:</label>
+      <select id="paisListar" [(ngModel)]="selectedPaisIdListar" name="paisListar">
+        <option *ngFor="let pais of paises" [value]="pais.id">{{ pais.nombre }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="anioListar">Año:</label>
+      <input type="number" id="anioListar" [(ngModel)]="anioListar" name="anioListar" placeholder="Ej: 2024">
+    </div>
+    <button (click)="onListarFestivos()">Listar Festivos</button>
+
+    <div *ngIf="festivosListados.length > 0" class="table-container">
+      <h4>Festivos Encontrados:</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Festivo</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let festivo of festivosListados">
+             <td>{{ festivo.pais }}</td> 
+            <td>{{ festivo.fecha | date:'longDate' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p *ngIf="festivosListados.length === 0 && selectedPaisIdListar && anioListar">
+      No se encontraron festivos para los criterios seleccionados.
+    </p>
+  </div>
+</div>
+    
+</body>
+</html>

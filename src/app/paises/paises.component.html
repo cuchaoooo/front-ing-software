@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="paises.component.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="container">
+  <h2>Administrar Países</h2>
+
+  <div class="form-section">
+    <h3>{{ editando ? 'Editar País' : 'Agregar Nuevo País' }}</h3>
+    <div class="form-group">
+      <label for="nombrePais">Nombre del País:</label>
+      <input type="text" id="nombrePais" [(ngModel)]="nuevoNombrePais" name="nombrePais" placeholder="Nombre del país">
+    </div>
+    <div class="button-group">
+      <button (click)="guardarPais()">{{ editando ? 'Actualizar' : 'Agregar' }}</button>
+      <button *ngIf="editando" (click)="limpiarSeleccion()" class="secondary">Cancelar Edición</button>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="list-section">
+    <h3>Listado de Países</h3>
+    <div *ngIf="paises.length === 0">No hay países para mostrar.</div>
+    <ul *ngIf="paises.length > 0">
+      <li *ngFor="let pais of paises">
+        <span>{{ pais.nombre }} (ID: {{ pais.id }})</span>
+        <div class="actions">
+          <button (click)="seleccionarPais(pais)" class="edit">Editar</button>
+          <button (click)="eliminarPais(pais.id)" class="delete">Eliminar</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+    
+</body>
+</html>
